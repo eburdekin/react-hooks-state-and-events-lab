@@ -1,11 +1,25 @@
 import React from "react";
 
-function Item({ name, category }) {
+function Item({ id, name, category, atc, setATC, ATC}) {
+
+  const liClass = atc ? "in-cart" : ""
+  const buttonClass = atc ? "remove" : "add"
+
+  function handleATCClick() {
+    setATC(ATC.map((item) => {
+        if (item.id === id) {
+          return { ...item, atc: !item.atc };
+        }
+        return item;
+      })
+    )
+    }
+
   return (
-    <li className="">
+    <li className={liClass}>
       <span>{name}</span>
       <span className="category">{category}</span>
-      <button className="add">Add to Cart</button>
+      <button id={id} className={buttonClass} onClick={handleATCClick}>{atc ? "Remove from Cart" : "Add to Cart"}</button>
     </li>
   );
 }
